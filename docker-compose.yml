@@ -1,0 +1,16 @@
+version: '3'
+services:
+    backend: 
+        build:
+            dockerfile: Dockerfile
+            context: ./item-tracker-rest
+        ports:
+            - "9000:9000"
+    frontend:
+        build:
+            dockerfile: Dockerfile
+            context: ./item-tracker-vue
+        ports:
+            - "8080:4200" 
+        depends_on:
+            - backend
