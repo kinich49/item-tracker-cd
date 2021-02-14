@@ -28,11 +28,8 @@ jobs:
           repository: kinich49/item-tracker-rest 
           path: item-tracker-rest
 
-      - name: Print workspace path
-        run: ls -lha
-
       - name: Move backend folder
-        run: mv /item-tracker-rest ..
+        run: mv item-tracker-rest ..
           
       - name: Checkout frontend
         uses: actions/checkout@master
