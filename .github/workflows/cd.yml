@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: kinich49/item-tracker-rest 
-          path: /item-tracker-rest
+          path: item-tracker-rest
       - name: Move backend folder
         run: mv /item-tracker-rest ..
           
@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: kinich49/item-tracker-vue 
-          path: ../item-tracker-vue
+          path: item-tracker-vue
   
   build:
     runs-on: ubuntu-latest
