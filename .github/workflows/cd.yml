@@ -29,7 +29,7 @@ jobs:
           path: item-tracker-rest
 
       - name: Print workspace path
-        run: echo $GITHUB_WORKSPACE && pwd && echo ${{github.ref}}
+        run: ls -lha
 
       - name: Move backend folder
         run: mv /item-tracker-rest ..
