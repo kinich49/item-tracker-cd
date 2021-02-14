@@ -49,7 +49,7 @@ jobs:
 
     steps:
       - name: Print current path
-        run: pwd
-        
+        run: ls -lha
+
       - name: Docker-Compose build
         run: docker-compose -f docker-compose.yml -f .production.yml build
