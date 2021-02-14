@@ -40,8 +40,8 @@ jobs:
       - name: Move frontend folder
         run: mv item-tracker-vue ..
 
-      - name: build
-        run: docker-compose -f docker-compose.yml -f .production.yml build  
+      - name: Build PROD
+        run: docker-compose -f docker-compose.yml -f production.yml build  
   
   # build:
   #   runs-on: ubuntu-latest
