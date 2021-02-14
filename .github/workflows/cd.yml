@@ -19,7 +19,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
       - name: Checkout cd
         uses: actions/checkout@v2
               
@@ -28,6 +27,10 @@ jobs:
         with:
           repository: kinich49/item-tracker-rest 
           path: item-tracker-rest
+
+      - name: Print workspace path
+        run: echo $GITHUB_WORKSPACE && pwd && echo ${{github.ref}}
+
       - name: Move backend folder
         run: mv /item-tracker-rest ..
           
