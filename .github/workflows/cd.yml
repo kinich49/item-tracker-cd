@@ -29,7 +29,8 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: kinich49/item-tracker-rest 
-          path: ../item-tracker-rest
+          path: /item-tracker-rest
+        run: mv /item-tracker-rest ..
           
       - name: Checkout frontend
         uses: actions/checkout@master
