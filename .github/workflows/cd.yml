@@ -49,11 +49,8 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: |
-            kinich49/item-tracker:backend
-            kinich49/item-tracker:frontend
+      - name: Push backend
+        run: docker push kinich49/item-tracker:backend
+      
+      - name: Push frontend
+        run: docker push kinich49/item-tracker:frontend
