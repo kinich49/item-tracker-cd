@@ -30,6 +30,7 @@ jobs:
         with:
           repository: kinich49/item-tracker-rest 
           path: /item-tracker-rest
+      - name: Move backend folder
         run: mv /item-tracker-rest ..
           
       - name: Checkout frontend
