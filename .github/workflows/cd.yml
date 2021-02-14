@@ -22,8 +22,6 @@ jobs:
 
       - name: Checkout cd
         uses: actions/checkout@v2
-        with:
-          path: main
               
       - name: Checkout backend
         uses: actions/checkout@master
