@@ -35,8 +35,8 @@ jobs:
           repository: kinich49/item-tracker-vue 
           path: item-tracker-vue
   
-  # build:
-  #   needs: checkout
+  build:
+    needs: checkout
 
-  #   steps:
-  #     - run: docker-compose -f docker-compose.yml -f .production.yml build
+    steps:
+      - run: docker-compose -f docker-compose.yml -f .production.yml build
