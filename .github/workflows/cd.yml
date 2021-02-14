@@ -36,6 +36,7 @@ jobs:
           path: item-tracker-vue
   
   build:
+    runs-on: ubuntu-latest
     needs: checkout
 
     steps:
