@@ -33,10 +33,10 @@ jobs:
         run: touch ../item-tracker-vue/.env.local
 
       - name: Add frontend default username
-        run: echo "VUE_APP_DEFAULT_USERNAME=${{DEFAULT_BACKEND_USERNAME}}" >> ../item-tracker-vue/.env.local
+        run: echo "VUE_APP_DEFAULT_USERNAME=${{ secrets.DEFAULT_BACKEND_USERNAME}}" >> ../item-tracker-vue/.env.local
 
       - name: Add frontend default password
-        run: echo "VUE_APP_DEFAULT_PASSWORD=${{DEFAULT_BACKEND_PASSWORD}}" >> ../item-tracker-vue/.env.local
+        run: echo "VUE_APP_DEFAULT_PASSWORD=${ secrets.{DEFAULT_BACKEND_PASSWORD}}" >> ../item-tracker-vue/.env.local
 
       - name: Build PROD
         run: docker-compose -f docker-compose.yml -f production.yml build  
