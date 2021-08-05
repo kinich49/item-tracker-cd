@@ -1,16 +1,20 @@
-version: '3'
+version: '3.4'
 services:
     backend: 
+        network_mode: host
         build:
             dockerfile: Dockerfile
             context: ../item-tracker-rest
+            network: host
         image: kinich49/item-tracker:backend
         ports:
             - "9000:9000"
     frontend:
+        network_mode: host
         build:
             dockerfile: Dockerfile
             context: ../item-tracker-vue
+            network: host
         image: kinich49/item-tracker:frontend
         ports:
             - "8080:4200" 
