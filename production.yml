@@ -3,3 +3,15 @@ services:
         build:
             args: 
                 stage: production
+                port: 9000
+        image: kinich49/item-tracker:backend
+        ports:
+            - "9000:9000"
+    frontend:
+        build:
+            args:
+                port: 4200
+        image: kinich49/item-tracker:frontend
+        ports: 
+            - "4200:4200"
+        command: "4200"

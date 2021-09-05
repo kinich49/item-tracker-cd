@@ -3,3 +3,15 @@ services:
         build:
             args: 
                 stage: development
+                port: 9001
+        image: item-tracker-development:backend
+        ports:
+            - "9001:9001"
+    frontend:
+        build:
+            args:
+                port: 4201
+        image: item-tracker-development:frontend
+        ports:
+            - "4201:4201"
+        command: "4201"
