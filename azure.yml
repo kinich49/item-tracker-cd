@@ -1,0 +1,17 @@
+services:
+    backend: 
+        build:
+            args: 
+                profile: azure
+                port: 8080
+        image: kinich49/item-tracker-backend:latest-azure
+        ports:
+            - "8080:8080"
+    frontend:
+        build:
+            args:
+                port: 4200
+        image: kinich49/item-tracker-frontend:latest-azure
+        ports: 
+            - "4200:4200"
+        command: "4200"

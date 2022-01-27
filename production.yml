@@ -2,16 +2,16 @@ services:
     backend: 
         build:
             args: 
-                stage: production
+                profile: production
                 port: 9000
-        image: kinich49/item-tracker:backend
+        image: kinich49/item-tracker-backend:latest-production
         ports:
             - "9000:9000"
     frontend:
         build:
             args:
                 port: 4200
-        image: kinich49/item-tracker:frontend
+        image: kinich49/item-tracker-frontend:latest-production
         ports: 
             - "4200:4200"
         command: "4200"

@@ -5,7 +5,7 @@ on:
   repository_dispatch:
 
 jobs:
-  continous_delivery:
+  continous_delivery_azure:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout CD 
@@ -19,6 +19,69 @@ jobs:
 
       - name: Move backend folder
         run: mv item-tracker-rest ..
+
+      - name: Add DB credentials
+        run: > 
+          echo -e "\nazure.datasource.password=${{ secrets.AZURE_DATABASE_PASSWORD }}" >> ../item-tracker-rest/src/main/resources/application-azure.properties 
+          &&
+          echo "azure.datasource.user=${{ secrets.AZURE_DATABASE_USERNAME }}" >> ../item-tracker-rest/src/main/resources/application-azure.properties
+
+      - name: Checkout frontend
+        uses: actions/checkout@v2
+        with:
+          repository: kinich49/item-tracker-vue 
+          path: item-tracker-vue
+      
+      - name: Move frontend folder
+        run: mv item-tracker-vue ..
+
+      - name: Create .env.local file
+        run: touch ../item-tracker-vue/.env.local
+
+      - name: Add frontend default credentials
+        run: > 
+          echo "VUE_APP_DEFAULT_USERNAME=${{ secrets.DEFAULT_BACKEND_USERNAME }}" >> ../item-tracker-vue/.env.local
+          &&
+          echo "VUE_APP_DEFAULT_PASSWORD=${{ secrets.DEFAULT_BACKEND_PASSWORD }}" >> ../item-tracker-vue/.env.local
+
+      - name: Add WebService URL
+        run: echo -e "\nVUE_APP_BASE_URL=${{ secrets.AZURE_WEB_SERVICE }}" >> ../item-tracker-vue/.env.production
+
+      - name: Build App
+        run: docker-compose -f docker-compose.yml -f azure.yml build  
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      
+      - name: Push backend
+        run: docker push kinich49/item-tracker-backend:latest-azure
+
+      - name: Push frontend
+        run: docker push kinich49/item-tracker-frontend:latest-azure
+
+  continous_delivery_local:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout CD 
+        uses: actions/checkout@v2
+              
+      - name: Checkout backend
+        uses: actions/checkout@v2
+        with:
+          repository: kinich49/item-tracker-rest 
+          path: item-tracker-rest
+
+      - name: Move backend folder
+        run: mv item-tracker-rest ..
+  
+      - name: Add DB username 
+        run: echo "app.datasource.username=${{ secrets.LOCAL_DATABASE_USERNAME}}" > ../item-tracker-rest/src/main/resources/application-production.properties
+
+      - name: Add DB password
+        run: echo "app.datasource.password=${{ secrets.LOCAL_DATABASE_PASSWORD}}" > ../item-tracker-rest/src/main/resources/application-production.properties
           
       - name: Checkout frontend
         uses: actions/checkout@v2
@@ -38,7 +101,10 @@ jobs:
       - name: Add frontend default password
         run: echo "VUE_APP_DEFAULT_PASSWORD=${{ secrets.DEFAULT_BACKEND_PASSWORD }}" >> ../item-tracker-vue/.env.local
 
-      - name: Build PROD
+      - name: Add WebService URL
+        run: echo "VUE_APP_BASE_URL=${{ secrets.PRODUCTION_WEB_SERVICE }}" > ../item-tracker-vue/.env.production
+
+      - name: Build app
         run: docker-compose -f docker-compose.yml -f production.yml build  
 
       - name: Login to Docker Hub
@@ -46,9 +112,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      
-      - name: Push backend
-        run: docker push kinich49/item-tracker:backend
-      
+
+      - name: Push backend 
+        run: docker push kinich49/item-tracker-backend:latest-production
+
       - name: Push frontend
-        run: docker push kinich49/item-tracker:frontend
+        run: docker push kinich49/item-tracker-frontend:latest-production

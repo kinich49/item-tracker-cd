@@ -2,7 +2,7 @@ services:
     backend: 
         build:
             args: 
-                stage: development
+                profile: development
                 port: 9001
         image: item-tracker-development:backend
         ports:
