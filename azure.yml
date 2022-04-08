@@ -10,7 +10,7 @@ services:
     frontend:
         build:
             args:
-                port: 8080
+                port: 80
         image: kinich49/item-tracker-frontend:latest-azure
         ports: 
-            - "80:8080"
+            - "80:80"
