@@ -14,4 +14,3 @@ services:
         image: kinich49/item-tracker-frontend:latest-production
         ports: 
             - "4200:4200"
-        command: "4200"
